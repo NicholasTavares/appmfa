@@ -25,6 +25,10 @@ export const LogoText = styled.h1`
   color: ${({ theme }) => theme.colors["gray/800"]};
 `;
 
+export const ButtonsContainer = styled.div`
+  display: flex;
+`;
+
 export const OptionsContainer = styled.div`
   cursor: pointer;
   display: flex;

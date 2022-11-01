@@ -1,4 +1,5 @@
 import { createGlobalStyle } from "styled-components";
+import Montserrat from "../fonts/Montserrat-VariableFont_wght.ttf";
 
 const GlobalStyle = createGlobalStyle`
   * {
@@ -11,6 +12,15 @@ const GlobalStyle = createGlobalStyle`
 
   body {
     background-color: ${({ theme }) => theme.colors["gray/50"]};
+  }
+
+  // increase performance rather google fonts link html
+  @font-face {
+    font-family: 'Montserrat';
+    font-style: normal;
+    font-weight: 400;
+    src: url(${Montserrat}) format('truetype');
+    font-display: swap;
   }
 `;
 

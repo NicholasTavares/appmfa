@@ -25,4 +25,18 @@ describe("<Navbar />", () => {
 
     expect(textLogo).toHaveStyle("color: #1F2937");
   });
+
+  it("Logo SVG icon must have description and match value", () => {
+    render(
+      <ThemeProvider theme={theme}>
+        <Navbar />
+      </ThemeProvider>
+    );
+
+    const icon = screen.queryByRole("graphics-document", {
+      name: "Logotipo minimalista de um cofre de cores cinza escuro e branco.",
+    });
+
+    expect(icon).toBeInTheDocument();
+  });
 });

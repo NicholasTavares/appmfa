@@ -13,4 +13,16 @@ describe("<Navbar />", () => {
 
     expect(screen.queryByRole("navigation")).toBeInTheDocument();
   });
+
+  it("Logo color text should be equal to gray/800 (#1F2937)", () => {
+    render(
+      <ThemeProvider theme={theme}>
+        <Navbar />
+      </ThemeProvider>
+    );
+
+    const textLogo = screen.queryByText("Multi Factor Auth");
+
+    expect(textLogo).toHaveStyle("color: #1F2937");
+  });
 });

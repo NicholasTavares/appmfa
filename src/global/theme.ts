@@ -1,6 +1,7 @@
 const theme = {
   colors: {
     white: "#fff",
+    "cyan/500": "#06B6D4",
     "gray/50": "#F9FAFB",
     "gray/200": "#e5e7eb",
     "gray/300": "#D1D5DB",
@@ -14,6 +15,8 @@ const theme = {
     "lime/600": "#65A30D",
     "lime/700": "#4d7c0f",
     "rose/600": "#E11D48",
+    "stone/50": "#E7E5E4",
+    "yellow/500": "#EAB308",
   },
 };
 

@@ -53,4 +53,16 @@ describe("<Navbar />", () => {
 
     expect(icon).toBeInTheDocument();
   });
+
+  it("Navbar should not have options button in medium screen", () => {
+    const { getByTestId } = render(
+      <ThemeProvider theme={theme}>
+        <Navbar />
+      </ThemeProvider>
+    );
+
+    expect(getByTestId("option-container")).toHaveStyleRule("display", "none", {
+      media: "(min-width: 768px)",
+    });
+  });
 });

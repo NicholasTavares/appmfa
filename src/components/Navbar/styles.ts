@@ -1,5 +1,6 @@
 import styled from "styled-components";
-import { Vault, DotsThreeVertical } from "phosphor-react";
+import media from "styled-media-query";
+import { Vault } from "phosphor-react";
 
 export const Container = styled.nav`
   display: flex;
@@ -29,14 +30,72 @@ export const ButtonsContainer = styled.div`
   display: flex;
 `;
 
+export const SignInButton = styled.div`
+  cursor: pointer;
+  display: none;
+  padding: 0.7rem 2rem;
+  justify-content: center;
+  align-items: center;
+  border-radius: 2rem;
+  border: 1px solid ${({ theme }) => theme.colors["gray/300"]};
+  font-weight: 600;
+  color: ${({ theme }) => theme.colors["gray/900"]};
+  font-size: 1.3rem;
+  transition: all 500ms;
+
+  &:hover {
+    border-color: ${({ theme }) => theme.colors["lime/500"]};
+    color: ${({ theme }) => theme.colors["lime/500"]};
+  }
+
+  &:active {
+    border-color: ${({ theme }) => theme.colors["lime/700"]};
+    color: ${({ theme }) => theme.colors["lime/700"]};
+    transform: scale(1.05);
+  }
+
+  ${media.greaterThan("medium")`
+    display: flex;
+  `}
+`;
+
+export const AddTokenButton = styled.div`
+  cursor: pointer;
+  width: 3.5rem;
+  height: 3.5rem;
+  display: none;
+  justify-content: center;
+  align-items: center;
+  background-color: ${({ theme }) => theme.colors["gray/400"]};
+  border-radius: 50%;
+  border: 1px solid ${({ theme }) => theme.colors["yellow/500"]};
+  color: ${({ theme }) => theme.colors["gray/50"]};
+  font-size: 3rem;
+  margin-left: 1.5rem;
+  transition: all 500ms;
+
+  &:hover {
+    background-color: ${({ theme }) => theme.colors["gray/500"]};
+  }
+
+  &:active {
+    background-color: ${({ theme }) => theme.colors["gray/700"]};
+    transform: scale(1.05);
+  }
+
+  ${media.greaterThan("medium")`
+    display: flex;
+    margin-right: 1.5rem;
+  `}
+`;
+
 export const OptionsContainer = styled.div`
   cursor: pointer;
   display: flex;
   justify-content: center;
   align-items: center;
-`;
 
-export const OptionIcon = styled(DotsThreeVertical)`
-  font-size: 3rem;
-  color: ${({ theme }) => theme.colors["gray/800"]};
+  ${media.greaterThan("medium")`
+    display: none;
+  `}
 `;

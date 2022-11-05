@@ -39,4 +39,18 @@ describe("<Navbar />", () => {
 
     expect(icon).toBeInTheDocument();
   });
+
+  it("SVG button option icon in navbar must have description and match value", () => {
+    render(
+      <ThemeProvider theme={theme}>
+        <Navbar />
+      </ThemeProvider>
+    );
+
+    const icon = screen.queryByRole("graphics-document", {
+      name: "Imagem de três pontos cinza escuro verticais.",
+    });
+
+    expect(icon).toBeInTheDocument();
+  });
 });

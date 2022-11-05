@@ -1,7 +1,7 @@
 module.exports = {
-  testEnvironment: "jest-environment-jsdom",
+  testEnvironment: "jsdom",
   testPathIgnorePatterns: ["/node_modules/"],
-  collectCoverage: true,
+  collectCoverage: false,
   setupFilesAfterEnv: ["<rootDir>/.jest/setup.ts"],
   modulePaths: ["<rootDir>/src/"],
   transform: {
@@ -9,10 +9,14 @@ module.exports = {
       "babel-jest",
       {
         presets: [
-          ["@babel/preset-env", { targets: { esmodules: true } }],
+          [
+            "@babel/preset-env",
+            { targets: { esmodules: true, node: "current" } },
+          ],
           ["@babel/preset-react", { runtime: "automatic" }],
           "@babel/preset-typescript",
         ],
+        plugins: ["babel-plugin-styled-components"],
       },
     ],
   },

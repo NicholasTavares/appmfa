@@ -104,9 +104,9 @@ const SignUp = () => {
 
         <S.Button disabled={!isValid}>SignIn</S.Button>
 
-        <S.RedirectContainer>
-          <S.Redirect to="/signin">Already have an account?</S.Redirect>
-        </S.RedirectContainer>
+        <S.LinkContainer>
+          <S.LinkPage to="/signin">Already have an account?</S.LinkPage>
+        </S.LinkContainer>
       </S.FormContainer>
     </S.Container>
   );

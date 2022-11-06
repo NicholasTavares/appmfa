@@ -100,6 +100,7 @@ export const Button = styled.button`
   cursor: pointer;
   font-weight: bold;
   margin-top: 1rem;
+  margin-bottom: 2rem;
   width: 100%;
   height: 3rem;
   background-color: ${({ theme, disabled }) =>
@@ -122,16 +123,19 @@ export const Button = styled.button`
   }
 `;
 
-export const RedirectContainer = styled.div`
+export const LinkContainer = styled.div`
   display: flex;
 `;
 
-export const Redirect = styled(Link)`
+export const LinkPage = styled(Link)`
   cursor: pointer;
   text-decoration: none;
-  margin-top: 2rem;
   font-size: 1.3rem;
   color: ${({ theme }) => theme.colors["cyan/700"]};
+
+  &:not(last-child) {
+    margin-bottom: 0.5rem;
+  }
 
   &:hover {
     text-decoration: underline;

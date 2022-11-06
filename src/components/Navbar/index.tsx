@@ -1,11 +1,10 @@
 import { DropDownOptions } from "../DropDownOptions";
-import { Plus } from "phosphor-react";
 import * as S from "./styles";
 
 export const Navbar = () => {
   return (
     <S.Container>
-      <S.LogoContainer>
+      <S.LogoContainer to="/">
         <S.Logo
           weight="thin"
           aria-label="Logotipo minimalista de um cofre de cores cinza escuro e branco."
@@ -18,9 +17,9 @@ export const Navbar = () => {
           <DropDownOptions />
         </S.OptionsContainer>
         <S.AddTokenButton>
-          <Plus weight="regular" />
+          <S.AddTokenIcon weight="bold" />
         </S.AddTokenButton>
-        <S.SignInButton>SignIn</S.SignInButton>
+        <S.SignInButton to="/signin">SignIn</S.SignInButton>
       </S.ButtonsContainer>
     </S.Container>
   );

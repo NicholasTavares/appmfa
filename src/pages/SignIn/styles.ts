@@ -17,7 +17,7 @@ export const FormContainer = styled.form`
   border: 1px solid ${({ theme }) => theme.colors["gray/300"]};
   padding: 1.5rem;
   border-radius: 2rem;
-  background-color: ${({ theme }) => theme.colors["stone/50"]};
+  background-color: ${({ theme }) => theme.colors["stone/200"]};
 `;
 
 export const LogoContainer = styled.div`

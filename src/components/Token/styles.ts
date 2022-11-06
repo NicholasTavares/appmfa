@@ -5,7 +5,7 @@ export const Container = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  background-color: ${({ theme }) => theme.colors["stone/50"]};
+  background-color: ${({ theme }) => theme.colors["stone/200"]};
   overflow: hidden;
   border-radius: 1rem;
   transition: all 500ms;

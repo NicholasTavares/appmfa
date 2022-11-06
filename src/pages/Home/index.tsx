@@ -2,8 +2,9 @@ import * as S from "./styles";
 import { Token } from "../../components/Token";
 import { Navbar } from "../../components/Navbar";
 import { FixedAddButton } from "../../components/FixedAddButton";
+import { memo } from "react";
 
-export const Home = () => {
+const Home = () => {
   return (
     <S.Container>
       <Navbar />
@@ -30,3 +31,5 @@ export const Home = () => {
     </S.Container>
   );
 };
+
+export default memo(Home);

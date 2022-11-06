@@ -1,8 +1,9 @@
 import { Vault, EyeSlash, Eye } from "phosphor-react";
+import { Link } from "react-router-dom";
 import styled from "styled-components";
+import media from "styled-media-query";
 
 export const Container = styled.div`
-  transform: translateY(-10%);
   display: flex;
   justify-content: center;
   align-items: center;
@@ -12,12 +13,18 @@ export const Container = styled.div`
 `;
 
 export const FormContainer = styled.form`
+  transform: translateY(-10%);
   display: flex;
   flex-direction: column;
   border: 1px solid ${({ theme }) => theme.colors["gray/300"]};
   padding: 1.5rem;
   border-radius: 2rem;
   background-color: ${({ theme }) => theme.colors["stone/200"]};
+  width: 28rem;
+
+  ${media.greaterThan("medium")`
+    transform: translateY(0);
+  `}
 `;
 
 export const LogoContainer = styled.div`
@@ -63,7 +70,7 @@ export const FieldContainer = styled.div`
   background-color: ${({ theme }) => theme.colors.white};
   border-radius: 1rem;
   padding: 0.75rem 1rem;
-  width: 24rem;
+  width: 100%;
 `;
 
 export const Field = styled.input`
@@ -97,6 +104,7 @@ export const Button = styled.button`
   cursor: pointer;
   font-weight: bold;
   margin-top: 1rem;
+  margin-bottom: 2rem;
   width: 100%;
   height: 3rem;
   background-color: ${({ theme, disabled }) =>
@@ -119,13 +127,21 @@ export const Button = styled.button`
   }
 `;
 
-export const ForgotPasswordContainer = styled.div`
+export const LinkContainer = styled.div`
   display: flex;
 `;
 
-export const ForgotPassword = styled.span`
+export const LinkPage = styled(Link)`
   cursor: pointer;
-  margin-top: 2rem;
+  text-decoration: none;
   font-size: 1.3rem;
   color: ${({ theme }) => theme.colors["cyan/700"]};
+
+  &:not(last-child) {
+    margin-bottom: 0.5rem;
+  }
+
+  &:hover {
+    text-decoration: underline;
+  }
 `;

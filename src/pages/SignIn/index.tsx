@@ -54,9 +54,13 @@ const SignIn = () => {
 
         <S.Button disabled={!isValid}>SignIn</S.Button>
 
-        <S.ForgotPasswordContainer>
-          <S.ForgotPassword>Forgot password?</S.ForgotPassword>
-        </S.ForgotPasswordContainer>
+        <S.LinkContainer>
+          <S.LinkPage to="/">Forgot password?</S.LinkPage>
+        </S.LinkContainer>
+
+        <S.LinkContainer>
+          <S.LinkPage to="/signup">Sign up</S.LinkPage>
+        </S.LinkContainer>
       </S.FormContainer>
     </S.Container>
   );

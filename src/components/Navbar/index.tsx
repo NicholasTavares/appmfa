@@ -1,5 +1,4 @@
 import { DropDownOptions } from "../DropDownOptions";
-import { Plus } from "phosphor-react";
 import * as S from "./styles";
 
 export const Navbar = () => {
@@ -18,9 +17,9 @@ export const Navbar = () => {
           <DropDownOptions />
         </S.OptionsContainer>
         <S.AddTokenButton>
-          <Plus weight="regular" />
+          <S.AddTokenIcon weight="bold" />
         </S.AddTokenButton>
-        <S.SignInButton>SignIn</S.SignInButton>
+        <S.SignInButton to="/signin">SignIn</S.SignInButton>
       </S.ButtonsContainer>
     </S.Container>
   );

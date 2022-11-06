@@ -1,6 +1,7 @@
 import styled from "styled-components";
 import media from "styled-media-query";
-import { Vault } from "phosphor-react";
+import { Plus, Vault } from "phosphor-react";
+import { Link } from "react-router-dom";
 
 export const Container = styled.nav`
   display: flex;
@@ -30,7 +31,8 @@ export const ButtonsContainer = styled.div`
   display: flex;
 `;
 
-export const SignInButton = styled.div`
+export const SignInButton = styled(Link)`
+  text-decoration: none;
   cursor: pointer;
   display: none;
   padding: 0.7rem 2rem;
@@ -59,6 +61,10 @@ export const SignInButton = styled.div`
   `}
 `;
 
+export const AddTokenIcon = styled(Plus)`
+  color: ${({ theme }) => theme.colors["gray/800"]};
+`;
+
 export const AddTokenButton = styled.div`
   cursor: pointer;
   width: 3.5rem;
@@ -66,9 +72,9 @@ export const AddTokenButton = styled.div`
   display: none;
   justify-content: center;
   align-items: center;
-  background-color: ${({ theme }) => theme.colors["gray/400"]};
+  background-color: ${({ theme }) => theme.colors["stone/200"]};
   border-radius: 50%;
-  border: 1px solid ${({ theme }) => theme.colors["yellow/500"]};
+  border: 1px solid ${({ theme }) => theme.colors["gray/400"]};
   color: ${({ theme }) => theme.colors["gray/50"]};
   font-size: 3rem;
   margin-left: 1.5rem;
@@ -76,6 +82,9 @@ export const AddTokenButton = styled.div`
 
   &:hover {
     background-color: ${({ theme }) => theme.colors["gray/500"]};
+    ${AddTokenIcon} {
+      color: ${({ theme }) => theme.colors["gray/50"]};
+    }
   }
 
   &:active {

@@ -28,8 +28,6 @@ const SignUp = () => {
     console.log(email, name, password, password_confirmation);
   };
 
-  console.log(errors);
-
   return (
     <S.Container>
       <S.FormContainer onSubmit={handleSubmit(onSubmit)}>
@@ -90,10 +88,6 @@ const SignUp = () => {
               placeholder="password"
               {...register("password_confirmation", {
                 required: true,
-                validate: (val: string) => {
-                  if (watch("password") !== val)
-                    return "Your passwords do not match";
-                },
               })}
             />
           </S.FieldContainer>

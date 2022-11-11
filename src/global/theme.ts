@@ -16,6 +16,8 @@ const theme = {
     "lime/600": "#65A30D",
     "lime/700": "#4d7c0f",
     "rose/600": "#E11D48",
+    "red/700": "#b91c1c",
+    "red/800": "#991b1b",
     "stone/200": "#E7E5E4",
     "yellow/500": "#EAB308",
   },

@@ -3,6 +3,9 @@ import { useForm, SubmitHandler } from "react-hook-form";
 import { isValidName } from "../../utils/isValidName";
 import { isValidEmail } from "../../utils/isValidEmail";
 import * as S from "./styles";
+import { useMutation } from "react-query";
+import { signUpPost } from "../../api/signUpAPI";
+import { useNavigate } from "react-router-dom";
 
 type SignUpPost = {
   email: string;
@@ -12,11 +15,13 @@ type SignUpPost = {
 };
 
 const SignUp = () => {
-  const [seePassword, setSeePassword] = useState(false);
+  const navigate = useNavigate();
+  const { mutate, isLoading } = useMutation(signUpPost, {
+    onSuccess: () => navigate("/signin"),
+  });
   const {
     register,
     handleSubmit,
-    watch,
     formState: { isValid, errors },
   } = useForm<SignUpPost>({ mode: "onChange" });
   const onSubmit: SubmitHandler<SignUpPost> = ({
@@ -25,8 +30,9 @@ const SignUp = () => {
     password,
     password_confirmation,
   }) => {
-    console.log(email, name, password, password_confirmation);
+    mutate({ email, name, password, password_confirmation });
   };
+  const [seePassword, setSeePassword] = useState(false);
 
   return (
     <S.Container>
@@ -69,6 +75,7 @@ const SignUp = () => {
           <S.FieldContainer>
             <S.Field
               type={!seePassword ? "password" : "text"}
+              autoComplete="off"
               placeholder="password"
               {...register("password", { required: true, min: 6 })}
             />
@@ -85,6 +92,10 @@ const SignUp = () => {
           <S.FieldContainer>
             <S.Field
               type={!seePassword ? "password" : "text"}
+              onPaste={(e) => {
+                e.preventDefault();
+                return false;
+              }}
               placeholder="password"
               {...register("password_confirmation", {
                 required: true,
@@ -96,7 +107,7 @@ const SignUp = () => {
           )}
         </S.LabelFieldContainer>
 
-        <S.Button disabled={!isValid}>SignIn</S.Button>
+        <S.Button disabled={!isValid || isLoading}>SignIn</S.Button>
 
         <S.LinkContainer>
           <S.LinkPage to="/signin">Already have an account?</S.LinkPage>

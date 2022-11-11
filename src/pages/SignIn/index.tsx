@@ -1,7 +1,11 @@
+import { signInPost } from "../../api/signInAPI";
 import { memo, useState } from "react";
 import { useForm, SubmitHandler } from "react-hook-form";
+import { useMutation } from "react-query";
 import { isValidEmail } from "../../utils/isValidEmail";
 import * as S from "./styles";
+import { useNavigate } from "react-router-dom";
+import { useAuth } from "../../hooks/useAuth";
 
 type SignInPost = {
   email: string;
@@ -9,16 +13,24 @@ type SignInPost = {
 };
 
 const SignIn = () => {
-  const [seePassword, setSeePassword] = useState(false);
+  const auth = useAuth();
+  const navigate = useNavigate();
+  const { mutate, isLoading } = useMutation(signInPost, {
+    onSuccess: ({ accessToken }) => {
+      localStorage.setItem("jwt", accessToken);
+      auth?.setJwt(accessToken);
+      navigate("/");
+    },
+  });
   const {
     register,
     handleSubmit,
     formState: { isValid },
   } = useForm<SignInPost>({ mode: "onChange" });
   const onSubmit: SubmitHandler<SignInPost> = ({ email, password }) => {
-    console.log(email, password);
+    mutate({ email, password });
   };
-
+  const [seePassword, setSeePassword] = useState(false);
   return (
     <S.Container>
       <S.FormContainer onSubmit={handleSubmit(onSubmit)}>
@@ -33,6 +45,7 @@ const SignIn = () => {
             <S.Field
               type="email"
               placeholder="maria@email.com"
+              autoComplete="off"
               {...register("email", { required: true, validate: isValidEmail })}
             />
           </S.FieldContainer>
@@ -42,17 +55,17 @@ const SignIn = () => {
           <S.Label htmlFor="password">Password</S.Label>
           <S.FieldContainer>
             <S.Field
-              type={!seePassword ? "password" : "text"}
+              type={seePassword ? "text" : "password"}
               placeholder="password"
               {...register("password", { required: true })}
             />
             <S.IconContainer onClick={() => setSeePassword(!seePassword)}>
-              {!seePassword ? <S.DontSeePasswordIcon /> : <S.SeePasswordIcon />}
+              {seePassword ? <S.SeePasswordIcon /> : <S.DontSeePasswordIcon />}
             </S.IconContainer>
           </S.FieldContainer>
         </S.LabelFieldContainer>
 
-        <S.Button disabled={!isValid}>SignIn</S.Button>
+        <S.Button disabled={!isValid || isLoading}>SignIn</S.Button>
 
         <S.LinkContainer>
           <S.LinkPage to="/">Forgot password?</S.LinkPage>

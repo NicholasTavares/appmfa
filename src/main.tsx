@@ -6,20 +6,23 @@ import { ThemeProvider } from "styled-components";
 import App from "./App";
 import GlobalStyle from "./global/styles";
 import theme from "./global/theme";
+import { AuthProvider } from "./context/AuthProvider";
 
 const queryClient = new QueryClient();
 
-if (process.env.NODE_ENV === "production") {
+if (import.meta.env.VITE_APP_MODE === "production") {
   disableReactDevTools();
 }
 
 createRoot(document.getElementById("root") as HTMLElement).render(
-  <QueryClientProvider client={queryClient}>
-    <BrowserRouter>
-      <ThemeProvider theme={theme}>
-        <GlobalStyle />
-        <App />
-      </ThemeProvider>
-    </BrowserRouter>
-  </QueryClientProvider>
+  <AuthProvider>
+    <QueryClientProvider client={queryClient}>
+      <BrowserRouter>
+        <ThemeProvider theme={theme}>
+          <GlobalStyle />
+          <App />
+        </ThemeProvider>
+      </BrowserRouter>
+    </QueryClientProvider>
+  </AuthProvider>
 );

@@ -100,6 +100,13 @@ export const DontSeePasswordIcon = styled(EyeSlash)`
 
 //
 
+export const ErrorMessage = styled.div`
+  margin-top: 0.2rem;
+  font-size: 1.2rem;
+  max-width: 100%;
+  color: ${({ theme }) => theme.colors["gray/700"]};
+`;
+
 export const Button = styled.button`
   cursor: pointer;
   font-weight: bold;

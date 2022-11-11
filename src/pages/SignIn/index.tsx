@@ -4,8 +4,8 @@ import { useForm, SubmitHandler } from "react-hook-form";
 import { useMutation } from "react-query";
 import { isValidEmail } from "../../utils/isValidEmail";
 import * as S from "./styles";
-import { useNavigate } from "react-router-dom";
 import { useAuth } from "../../hooks/useAuth";
+import { useNavigate } from "react-router-dom";
 
 type SignInPost = {
   email: string;
@@ -15,21 +15,27 @@ type SignInPost = {
 const SignIn = () => {
   const auth = useAuth();
   const navigate = useNavigate();
+  const {
+    register,
+    handleSubmit,
+    setError,
+    formState: { isValid, errors },
+  } = useForm<SignInPost>({ mode: "onChange" });
+  const onSubmit: SubmitHandler<SignInPost> = ({ email, password }) => {
+    mutate({ email, password });
+  };
   const { mutate, isLoading } = useMutation(signInPost, {
     onSuccess: ({ accessToken }) => {
       localStorage.setItem("jwt", accessToken);
       auth?.setJwt(accessToken);
       navigate("/");
     },
+    onError: () => {
+      setError("password", {
+        message: "Incorrect email and/or password",
+      });
+    },
   });
-  const {
-    register,
-    handleSubmit,
-    formState: { isValid },
-  } = useForm<SignInPost>({ mode: "onChange" });
-  const onSubmit: SubmitHandler<SignInPost> = ({ email, password }) => {
-    mutate({ email, password });
-  };
   const [seePassword, setSeePassword] = useState(false);
   return (
     <S.Container>
@@ -63,6 +69,9 @@ const SignIn = () => {
               {seePassword ? <S.SeePasswordIcon /> : <S.DontSeePasswordIcon />}
             </S.IconContainer>
           </S.FieldContainer>
+          {errors.password && (
+            <S.ErrorMessage>Incorrect email or password</S.ErrorMessage>
+          )}
         </S.LabelFieldContainer>
 
         <S.Button disabled={!isValid || isLoading}>SignIn</S.Button>

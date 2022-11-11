@@ -1,3 +1,4 @@
+import { memo } from "react";
 import * as S from "./styles";
 
 const NotFound = () => {
@@ -19,4 +20,4 @@ const NotFound = () => {
   );
 };
 
-export default NotFound;
+export default memo(NotFound);

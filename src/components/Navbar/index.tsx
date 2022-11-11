@@ -19,7 +19,6 @@ export const Navbar = () => {
         <S.AddTokenButton>
           <S.AddTokenIcon weight="bold" />
         </S.AddTokenButton>
-        <S.SignInButton to="/signin">SignIn</S.SignInButton>
       </S.ButtonsContainer>
     </S.Container>
   );

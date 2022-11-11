@@ -1,5 +1,5 @@
 import * as S from "./styles";
-import { SignIn } from "phosphor-react";
+import { SignOut } from "phosphor-react";
 import { useState } from "react";
 
 export const DropDownOptions = () => {
@@ -14,9 +14,9 @@ export const DropDownOptions = () => {
       />
       <S.Container open={open} data-testid="container-slide">
         <S.ContainerOptions>
-          <S.Option>
-            <SignIn size={18} weight="light" />
-            Entrar
+          <S.Option to="/signin">
+            <SignOut size={18} weight="light" />
+            Sign Out
           </S.Option>
         </S.ContainerOptions>
       </S.Container>

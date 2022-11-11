@@ -1,4 +1,5 @@
 import { DotsThreeVertical } from "phosphor-react";
+import { Link } from "react-router-dom";
 import styled from "styled-components";
 import media from "styled-media-query";
 
@@ -43,8 +44,9 @@ export const OptionIcon = styled(DotsThreeVertical)`
   color: ${({ theme }) => theme.colors["gray/800"]};
 `;
 
-export const Option = styled.div`
+export const Option = styled(Link)`
   cursor: pointer;
+  text-decoration: none;
   display: flex;
   justify-content: space;
   align-items: center;

@@ -33,7 +33,7 @@ export const ButtonsContainer = styled.div`
   display: flex;
 `;
 
-export const SignInButton = styled(Link)`
+export const SignOutButton = styled.div`
   text-decoration: none;
   cursor: pointer;
   display: none;
@@ -46,15 +46,16 @@ export const SignInButton = styled(Link)`
   color: ${({ theme }) => theme.colors["gray/900"]};
   font-size: 1.3rem;
   transition: all 500ms;
+  margin-left: 1.5rem;
 
   &:hover {
-    border-color: ${({ theme }) => theme.colors["lime/500"]};
-    color: ${({ theme }) => theme.colors["lime/500"]};
+    border-color: ${({ theme }) => theme.colors["red/700"]};
+    color: ${({ theme }) => theme.colors["red/700"]};
   }
 
   &:active {
-    border-color: ${({ theme }) => theme.colors["lime/700"]};
-    color: ${({ theme }) => theme.colors["lime/700"]};
+    border-color: ${({ theme }) => theme.colors["red/800"]};
+    color: ${({ theme }) => theme.colors["red/800"]};
     transform: scale(1.05);
   }
 
@@ -96,7 +97,6 @@ export const AddTokenButton = styled.div`
 
   ${media.greaterThan("medium")`
     display: flex;
-    margin-right: 1.5rem;
   `}
 `;
 

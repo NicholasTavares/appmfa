@@ -1,31 +1,29 @@
 import * as S from "./styles";
+import { useQuery } from "react-query";
 import { Token } from "../../components/Token";
 import { Navbar } from "../../components/Navbar";
 import { FixedAddButton } from "../../components/FixedAddButton";
 import { memo } from "react";
+import { getToken } from "../../api/tokenAPI";
+import { Loading } from "../../components/Loading";
+import { useAuth } from "../../hooks/useAuth";
 
 const Home = () => {
+  const auth = useAuth();
+  const { data: token, isFetching } = useQuery(["token", auth?.jwt], () =>
+    getToken(auth?.jwt)
+  );
   return (
     <S.Container>
       <Navbar />
       <S.TokensCountContainer>
-        <S.TokensCount>Tokens (5)</S.TokensCount>
+        <S.TokensCount>Tokens ({isFetching ? 0 : 1})</S.TokensCount>
       </S.TokensCountContainer>
+      {isFetching && <Loading />}
       <S.GridContainer>
-        <Token title="Binance (tiago@email.com)" token="470 864" time="0" />
-        <Token title="Google (tiago@email.com)" token="823 900" time="0" />
-        <Token title="Github (tiago@email.com)" token="115 763" time="0" />
-        <Token title="Coinbase (tiago@email.com)" token="780 199" time="0" />
-        <Token title="Binance (tiago@email.com)" token="007 555" time="0" />
-        <Token title="Binance (tiago@email.com)" token="007 555" time="0" />
-        <Token title="Binance (tiago@email.com)" token="007 555" time="0" />
-        <Token title="Binance (tiago@email.com)" token="007 555" time="0" />
-        <Token title="Binance (tiago@email.com)" token="007 555" time="0" />
-        <Token title="Binance (tiago@email.com)" token="007 555" time="0" />
-        <Token title="Binance (tiago@email.com)" token="007 555" time="0" />
-        <Token title="Binance (tiago@email.com)" token="007 555" time="0" />
-        <Token title="Binance (tiago@email.com)" token="007 555" time="0" />
-        <Token title="Binance (tiago@email.com)" token="007 555" time="0" />
+        {!isFetching && token && (
+          <Token token={token.code} expirationDate={token.expiresAt} />
+        )}
       </S.GridContainer>
       <FixedAddButton />
     </S.Container>

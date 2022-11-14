@@ -10,14 +10,16 @@ import { useAuth } from "../../hooks/useAuth";
 
 const Home = () => {
   const auth = useAuth();
-  const { data: token, isFetching } = useQuery(["token", auth?.jwt], () =>
-    getToken(auth?.jwt)
-  );
+  const {
+    data: token,
+    isFetching,
+    error,
+  } = useQuery(["token", auth?.jwt], () => getToken(auth?.jwt));
   return (
     <S.Container>
       <Navbar />
       <S.TokensCountContainer>
-        <S.TokensCount>Tokens ({isFetching ? 0 : 1})</S.TokensCount>
+        <S.TokensCount>Tokens ({isFetching || error ? 0 : 1})</S.TokensCount>
       </S.TokensCountContainer>
       {isFetching && <Loading />}
       <S.GridContainer>

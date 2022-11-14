@@ -9,7 +9,7 @@ module.exports = {
     "@storybook/addon-interactions",
     "storybook-addon-react-router-v6",
     "@react-theming/storybook-addon",
-    "storybook-addon-styled-component-theme",
+    "storybook-addon-styled-component-theme/dist/preset",
   ],
   staticDirs: ["../src/fonts/static"],
   framework: "@storybook/react",

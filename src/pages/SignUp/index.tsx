@@ -1,11 +1,11 @@
 import { useState } from "react";
 import { useForm, SubmitHandler } from "react-hook-form";
-import { isValidName } from "../../utils/isValidName";
-import { isValidEmail } from "../../utils/isValidEmail";
-import * as S from "./styles";
 import { useMutation } from "react-query";
-import { signUpPost } from "../../api/signUpAPI";
 import { useNavigate } from "react-router-dom";
+import { signUpPost } from "../../api/signUpAPI";
+import * as ERRORS from "../../utils/errorsMessage";
+import * as VF from "../../utils/validationFunctions";
+import * as S from "./styles";
 
 type SignUpPost = {
   email: string;
@@ -16,13 +16,12 @@ type SignUpPost = {
 
 const SignUp = () => {
   const navigate = useNavigate();
-  const { mutate, isLoading } = useMutation(signUpPost, {
-    onSuccess: () => navigate("/signin"),
-  });
   const {
     register,
     handleSubmit,
     formState: { isValid, errors },
+    setError,
+    watch,
   } = useForm<SignUpPost>({ mode: "onChange" });
   const onSubmit: SubmitHandler<SignUpPost> = ({
     email,
@@ -32,8 +31,16 @@ const SignUp = () => {
   }) => {
     mutate({ email, name, password, password_confirmation });
   };
+  const { mutate, isLoading } = useMutation(signUpPost, {
+    onSuccess: () => navigate("/signin"),
+    onError: () => {
+      setError("email", {
+        message: ERRORS.EMAIL_EXISTS,
+      });
+    },
+  });
   const [seePassword, setSeePassword] = useState(false);
-
+  console.log(errors);
   return (
     <S.Container>
       <S.FormContainer onSubmit={handleSubmit(onSubmit)}>
@@ -47,27 +54,35 @@ const SignUp = () => {
           <S.FieldContainer>
             <S.Field
               type="name"
+              autoCorrect="false"
               placeholder="Maria"
-              {...register("name", { required: true, validate: isValidName })}
+              {...register("name", {
+                required: true,
+                validate: {
+                  checkName: (v) => VF.isValidName(v) || ERRORS.INVALID_NAME,
+                },
+              })}
             />
           </S.FieldContainer>
-          {errors.name && (
-            <S.ErrorMessage>
-              Name must have at minimum 4 characters
-            </S.ErrorMessage>
-          )}
+          <S.ErrorMessage>{errors.name?.message}</S.ErrorMessage>
         </S.LabelFieldContainer>
 
         <S.LabelFieldContainer>
           <S.Label htmlFor="email">Email</S.Label>
           <S.FieldContainer>
             <S.Field
+              autoCorrect="false"
               type="email"
               placeholder="maria@email.com"
-              {...register("email", { required: true, validate: isValidEmail })}
+              {...register("email", {
+                required: true,
+                validate: {
+                  checkEmail: (v) => VF.isValidEmail(v) || ERRORS.INVALID_EMAIL,
+                },
+              })}
             />
           </S.FieldContainer>
-          {errors.email && <S.ErrorMessage>Invalid email</S.ErrorMessage>}
+          <S.ErrorMessage>{errors.email?.message}</S.ErrorMessage>
         </S.LabelFieldContainer>
 
         <S.LabelFieldContainer>
@@ -77,12 +92,19 @@ const SignUp = () => {
               type={!seePassword ? "password" : "text"}
               autoComplete="off"
               placeholder="password"
-              {...register("password", { required: true, min: 6 })}
+              {...register("password", {
+                required: true,
+                validate: {
+                  checkPassword: (v) =>
+                    VF.isValidPassword(v) || ERRORS.INVALID_PASSWORD,
+                },
+              })}
             />
             <S.IconContainer onClick={() => setSeePassword(!seePassword)}>
               {!seePassword ? <S.DontSeePasswordIcon /> : <S.SeePasswordIcon />}
             </S.IconContainer>
           </S.FieldContainer>
+          <S.ErrorMessage>{errors.password?.message}</S.ErrorMessage>
         </S.LabelFieldContainer>
 
         <S.LabelFieldContainer>
@@ -91,7 +113,7 @@ const SignUp = () => {
           </S.Label>
           <S.FieldContainer>
             <S.Field
-              type={!seePassword ? "password" : "text"}
+              type="password"
               onPaste={(e) => {
                 e.preventDefault();
                 return false;
@@ -99,15 +121,20 @@ const SignUp = () => {
               placeholder="password"
               {...register("password_confirmation", {
                 required: true,
+                validate: (password_confirmation: string) => {
+                  if (watch("password") !== password_confirmation) {
+                    return "Your passwords do no match";
+                  }
+                },
               })}
             />
           </S.FieldContainer>
-          {errors.password_confirmation && (
-            <S.ErrorMessage>Your passwords do not match</S.ErrorMessage>
-          )}
+          <S.ErrorMessage>
+            {errors.password_confirmation?.message}
+          </S.ErrorMessage>
         </S.LabelFieldContainer>
 
-        <S.Button disabled={!isValid || isLoading}>SignIn</S.Button>
+        <S.Button disabled={!isValid || isLoading}>SignUp</S.Button>
 
         <S.LinkContainer>
           <S.LinkPage to="/signin">Already have an account?</S.LinkPage>

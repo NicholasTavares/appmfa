@@ -1,11 +1,11 @@
-import { signInPost } from "../../api/signInAPI";
 import { memo, useState } from "react";
 import { useForm, SubmitHandler } from "react-hook-form";
-import { useMutation } from "react-query";
-import { isValidEmail } from "../../utils/isValidEmail";
-import * as S from "./styles";
-import { useAuth } from "../../hooks/useAuth";
 import { useNavigate } from "react-router-dom";
+import { useMutation } from "react-query";
+import { signInPost } from "../../api/signInAPI";
+import { useAuth } from "../../hooks/useAuth";
+import * as ERRORS from "../../utils/errorsMessage";
+import * as S from "./styles";
 
 type SignInPost = {
   email: string;
@@ -32,7 +32,7 @@ const SignIn = () => {
     },
     onError: () => {
       setError("password", {
-        message: "Incorrect email and/or password",
+        message: ERRORS.INVALID_SIGNIN,
       });
     },
   });
@@ -52,9 +52,12 @@ const SignIn = () => {
               type="email"
               placeholder="maria@email.com"
               autoComplete="off"
-              {...register("email", { required: true, validate: isValidEmail })}
+              {...register("email", {
+                required: "Email required",
+              })}
             />
           </S.FieldContainer>
+          <S.ErrorMessage>{errors.email?.message}</S.ErrorMessage>
         </S.LabelFieldContainer>
 
         <S.LabelFieldContainer>
@@ -64,15 +67,13 @@ const SignIn = () => {
               type={seePassword ? "text" : "password"}
               placeholder="password"
               autoComplete="off"
-              {...register("password", { required: true })}
+              {...register("password", { required: "Password is required" })}
             />
             <S.IconContainer onClick={() => setSeePassword(!seePassword)}>
               {seePassword ? <S.SeePasswordIcon /> : <S.DontSeePasswordIcon />}
             </S.IconContainer>
           </S.FieldContainer>
-          {errors.password && (
-            <S.ErrorMessage>Incorrect email or password</S.ErrorMessage>
-          )}
+          <S.ErrorMessage>{errors.password?.message}</S.ErrorMessage>
         </S.LabelFieldContainer>
 
         <S.Button disabled={!isValid || isLoading}>SignIn</S.Button>

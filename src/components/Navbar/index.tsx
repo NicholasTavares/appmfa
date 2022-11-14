@@ -8,7 +8,7 @@ export const Navbar = () => {
   const auth = useAuth();
 
   const Logout = () => {
-    auth?.setJwt(false);
+    auth?.setJwt(undefined);
     localStorage.clear();
     navigate("/signin");
   };

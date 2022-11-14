@@ -13,8 +13,8 @@ type TokenProps = {
 type AppContextProps = {
   auth: TokenProps | null;
   setAuth: Dispatch<SetStateAction<TokenProps | null>>;
-  jwt: string | false;
-  setJwt: Dispatch<SetStateAction<string | false>>;
+  jwt: string | undefined;
+  setJwt: Dispatch<SetStateAction<string | undefined>>;
 };
 
 type AuthProviderProps = {
@@ -25,8 +25,8 @@ const AuthContext = createContext<AppContextProps | null>(null);
 
 export const AuthProvider = ({ children }: AuthProviderProps) => {
   const [auth, setAuth] = useState<TokenProps | null>(null);
-  const [jwt, setJwt] = useState<string | false>(
-    localStorage.getItem("jwt") || false
+  const [jwt, setJwt] = useState<string | undefined>(
+    localStorage.getItem("jwt") || undefined
   );
 
   return (

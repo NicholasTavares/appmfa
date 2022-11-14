@@ -1,17 +1,16 @@
 import * as S from "./styles";
 
 type TokenProps = {
-  title: string;
   token: string;
-  time: string;
+  expirationDate: string;
 };
 
-export const Token = ({ title, token, time }: TokenProps) => {
+export const Token = ({ token, expirationDate }: TokenProps) => {
   return (
     <S.Container>
       <S.TokenContainer>
         <S.TokenDetailsContainer>
-          <S.TokenTitle>{title}</S.TokenTitle>
+          <S.TokenTitle>Token</S.TokenTitle>
           <S.TokenNumber>{token}</S.TokenNumber>
         </S.TokenDetailsContainer>
         <S.CopyTokenContainer>

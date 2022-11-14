@@ -74,7 +74,7 @@ export const CopyButton = styled.div`
 `;
 
 export const LineTime = styled.div`
-  width: 85%;
+  width: 100%;
   height: 0.5rem;
   background-color: ${({ theme }) => theme.colors["cyan/500"]};
 `;

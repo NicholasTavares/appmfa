@@ -40,7 +40,6 @@ const SignUp = () => {
     },
   });
   const [seePassword, setSeePassword] = useState(false);
-  console.log(errors);
   return (
     <S.Container>
       <S.FormContainer onSubmit={handleSubmit(onSubmit)}>

@@ -7,6 +7,7 @@ export default axios.create({
 
 export const basePrivateAPI = axios.create({
   baseURL: BASE_URL,
-  headers: { "Content-Type": "application/json" },
-  withCredentials: true,
+  headers: {
+    "Content-Type": "application/json",
+  },
 });
